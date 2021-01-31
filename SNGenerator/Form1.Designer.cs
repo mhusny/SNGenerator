@@ -32,18 +32,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtPartNo = new System.Windows.Forms.TextBox();
+            this.txtBrand = new System.Windows.Forms.TextBox();
+            this.txtPONo = new System.Windows.Forms.TextBox();
             this.txtYear = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtQty = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DG = new System.Windows.Forms.DataGridView();
             this.btnScan = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.txtBarcode = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtSeqNo = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.DG)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -82,26 +84,26 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Year";
             // 
-            // textBox1
+            // txtPartNo
             // 
-            this.textBox1.Location = new System.Drawing.Point(84, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(124, 20);
-            this.textBox1.TabIndex = 4;
+            this.txtPartNo.Location = new System.Drawing.Point(84, 38);
+            this.txtPartNo.Name = "txtPartNo";
+            this.txtPartNo.Size = new System.Drawing.Size(124, 20);
+            this.txtPartNo.TabIndex = 4;
             // 
-            // textBox2
+            // txtBrand
             // 
-            this.textBox2.Location = new System.Drawing.Point(84, 64);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(124, 20);
-            this.textBox2.TabIndex = 5;
+            this.txtBrand.Location = new System.Drawing.Point(84, 64);
+            this.txtBrand.Name = "txtBrand";
+            this.txtBrand.Size = new System.Drawing.Size(124, 20);
+            this.txtBrand.TabIndex = 5;
             // 
-            // textBox3
+            // txtPONo
             // 
-            this.textBox3.Location = new System.Drawing.Point(84, 90);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(124, 20);
-            this.textBox3.TabIndex = 6;
+            this.txtPONo.Location = new System.Drawing.Point(84, 90);
+            this.txtPONo.Name = "txtPONo";
+            this.txtPONo.Size = new System.Drawing.Size(124, 20);
+            this.txtPONo.TabIndex = 6;
             // 
             // txtYear
             // 
@@ -115,40 +117,41 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 150);
+            this.label5.Location = new System.Drawing.Point(32, 171);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Seq No.";
             // 
-            // textBox5
+            // txtQty
             // 
-            this.textBox5.Location = new System.Drawing.Point(84, 147);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(124, 20);
-            this.textBox5.TabIndex = 9;
+            this.txtQty.Location = new System.Drawing.Point(84, 142);
+            this.txtQty.Name = "txtQty";
+            this.txtQty.Size = new System.Drawing.Size(124, 20);
+            this.txtQty.TabIndex = 9;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(35, 277);
+            this.btnSave.Location = new System.Drawing.Point(35, 212);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(173, 34);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // dataGridView1
+            // DG
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(214, 38);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(352, 273);
-            this.dataGridView1.TabIndex = 11;
+            this.DG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DG.Location = new System.Drawing.Point(214, 38);
+            this.DG.Name = "DG";
+            this.DG.Size = new System.Drawing.Size(352, 273);
+            this.DG.TabIndex = 11;
             // 
             // btnScan
             // 
             this.btnScan.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnScan.Location = new System.Drawing.Point(35, 173);
+            this.btnScan.Location = new System.Drawing.Point(593, 307);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(75, 72);
             this.btnScan.TabIndex = 12;
@@ -158,36 +161,54 @@
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.Location = new System.Drawing.Point(133, 173);
+            this.btnStop.Location = new System.Drawing.Point(691, 307);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 72);
             this.btnStop.TabIndex = 13;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             // 
-            // textBox6
+            // txtBarcode
             // 
-            this.textBox6.Location = new System.Drawing.Point(35, 251);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(173, 20);
-            this.textBox6.TabIndex = 14;
+            this.txtBarcode.Location = new System.Drawing.Point(593, 385);
+            this.txtBarcode.Name = "txtBarcode";
+            this.txtBarcode.Size = new System.Drawing.Size(173, 20);
+            this.txtBarcode.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(32, 145);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Quantuty";
+            // 
+            // txtSeqNo
+            // 
+            this.txtSeqNo.Location = new System.Drawing.Point(84, 168);
+            this.txtSeqNo.Name = "txtSeqNo";
+            this.txtSeqNo.Size = new System.Drawing.Size(124, 20);
+            this.txtSeqNo.TabIndex = 16;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtSeqNo);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtBarcode);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnScan);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DG);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.txtQty);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtYear);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtPONo);
+            this.Controls.Add(this.txtBrand);
+            this.Controls.Add(this.txtPartNo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -197,7 +218,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,17 +230,19 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtPartNo;
+        private System.Windows.Forms.TextBox txtBrand;
+        private System.Windows.Forms.TextBox txtPONo;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DG;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtBarcode;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtSeqNo;
     }
 }
 

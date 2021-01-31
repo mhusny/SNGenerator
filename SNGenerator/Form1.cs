@@ -35,7 +35,9 @@ namespace SNGenerator
             Excel.Worksheet xlWorkSheet;
             Excel.Range range;
 
-            string str;
+            string str = "";
+            double dbl;
+            string seqno;
             int rCnt;
             int cCnt;
             int rw = 0;
@@ -49,15 +51,37 @@ namespace SNGenerator
             rw = range.Rows.Count;
             cl = range.Columns.Count;
 
+            #region Original code
+            //for (rCnt = 1; rCnt <= rw; rCnt++)
+            //{
+            //    for (cCnt = 1; cCnt <= cl; cCnt++)
+            //    {
+            //        str = (string)(range.Cells[rCnt, cCnt] as Excel.Range).Value2;
+            //        MessageBox.Show(str);
+            //    }
+            //}
+            #endregion
 
-            for (rCnt = 1; rCnt <= rw; rCnt++)
+            if (cl > 1)
             {
-                for (cCnt = 1; cCnt <= cl; cCnt++)
-                {
-                    str = (string)(range.Cells[rCnt, cCnt] as Excel.Range).Value2;
-                    MessageBox.Show(str);
-                }
+                dbl = (double)(range.Cells[rw, 5] as Excel.Range).Value2 + 1;
+                txtSeqNo.Text = dbl.ToString();
+                
             }
+            else
+            {
+                txtSeqNo.Text = "1";
+            }
+
+
+            //for (rCnt = 1; rCnt <= rw; rCnt++)
+            //{
+            //    for (cCnt = 1; cCnt <= cl; cCnt++)
+            //    {
+            //        str = (string)(range.Cells[rCnt, cCnt] as Excel.Range).Value2;
+            //        MessageBox.Show(str);
+            //    }
+            //}
 
             xlWorkBook.Close(true, null, null);
             xlApp.Quit();
@@ -65,6 +89,24 @@ namespace SNGenerator
             Marshal.ReleaseComObject(xlWorkSheet);
             Marshal.ReleaseComObject(xlWorkBook);
             Marshal.ReleaseComObject(xlApp);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string str = "";
+            double dbl;
+            string seqno;
+           
+            if (txtSeqNo.Text.Length > 1)
+            {
+                dbl = double.Parse(txtSeqNo.Text);
+                for (int i = 1; i <= double.Parse(txtQty.Text.ToString()); i++)
+                {
+                    seqno = "00000000" + (dbl + i).ToString();
+                    str = txtPartNo.Text + "_" + txtBrand.Text + "_" + txtPONo.Text + "_" + txtYear.Text.Substring(2, 2) + "_" + seqno.Substring(seqno.Length - 8, seqno.Length - (seqno.Length - 8));
+
+                }
+            }
         }
     }
 }
