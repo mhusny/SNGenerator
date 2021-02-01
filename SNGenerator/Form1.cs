@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
-
+using System.IO;
 
 namespace SNGenerator
 {
@@ -43,6 +43,7 @@ namespace SNGenerator
             int rw = 0;
             int cl = 0;
 
+            //check for excell and create automatically
             xlApp = new Excel.Application();
             xlWorkBook = xlApp.Workbooks.Open(AppContext.BaseDirectory + @"\2021.xlsx", 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
@@ -64,6 +65,7 @@ namespace SNGenerator
 
             if (cl > 1)
             {
+                //modification needed below
                 dbl = (double)(range.Cells[rw, 5] as Excel.Range).Value2 + 1;
                 txtSeqNo.Text = dbl.ToString();
                 
@@ -93,18 +95,40 @@ namespace SNGenerator
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //Validation needed
+
             string str = "";
             double dbl;
             string seqno;
            
-            if (txtSeqNo.Text.Length > 1)
+            if (txtSeqNo.Text.Length > 0 && txtPartNo.Text.Length > 0 && txtBrand.Text.Length > 0 && txtPONo.Text.Length > 0 && txtQty.Text.Length > 0)
             {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("SN");
+                
+
                 dbl = double.Parse(txtSeqNo.Text);
                 for (int i = 1; i <= double.Parse(txtQty.Text.ToString()); i++)
                 {
                     seqno = "00000000" + (dbl + i).ToString();
                     str = txtPartNo.Text + "_" + txtBrand.Text + "_" + txtPONo.Text + "_" + txtYear.Text.Substring(2, 2) + "_" + seqno.Substring(seqno.Length - 8, seqno.Length - (seqno.Length - 8));
 
+                    //add str to UG
+                    dt.Rows.Add(str);
+                    DG.DataSource = dt;
+
+                    
+
+                    //append text fields to excell
+                }
+            }
+            //export UG to text file
+            using (TextWriter tw = new StreamWriter(AppContext.BaseDirectory + @"\SN.txt"))
+            {
+                for (int x = 0; x < DG.Rows.Count - 1; x++)
+                {
+                    tw.Write($"{DG.Rows[x].Cells[0].Value.ToString()}");
+                    tw.WriteLine();
                 }
             }
         }
