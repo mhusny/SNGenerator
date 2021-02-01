@@ -46,6 +46,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtSeqNo = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DG)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,7 +119,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 171);
+            this.label5.Location = new System.Drawing.Point(32, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 8;
@@ -126,18 +127,18 @@
             // 
             // txtQty
             // 
-            this.txtQty.Location = new System.Drawing.Point(84, 142);
+            this.txtQty.Location = new System.Drawing.Point(84, 168);
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(124, 20);
             this.txtQty.TabIndex = 9;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(35, 212);
+            this.btnSave.Location = new System.Drawing.Point(35, 194);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(173, 34);
             this.btnSave.TabIndex = 10;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Load";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -179,7 +180,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(32, 145);
+            this.label6.Location = new System.Drawing.Point(32, 171);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 15;
@@ -187,7 +188,7 @@
             // 
             // txtSeqNo
             // 
-            this.txtSeqNo.Location = new System.Drawing.Point(84, 168);
+            this.txtSeqNo.Location = new System.Drawing.Point(84, 142);
             this.txtSeqNo.Name = "txtSeqNo";
             this.txtSeqNo.Size = new System.Drawing.Size(124, 20);
             this.txtSeqNo.TabIndex = 16;
@@ -201,11 +202,22 @@
             this.button1.Text = "Clear Grid";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(35, 252);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(173, 34);
+            this.btnPrint.TabIndex = 18;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtSeqNo);
             this.Controls.Add(this.label6);
@@ -228,7 +240,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = " ";
             ((System.ComponentModel.ISupportInitialize)(this.DG)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -255,6 +267,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtSeqNo;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPrint;
     }
 }
 

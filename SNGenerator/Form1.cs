@@ -116,20 +116,82 @@ namespace SNGenerator
                     //add str to UG
                     dt.Rows.Add(str);
                     DG.DataSource = dt;
-
-                    
-
-                    //append text fields to excell
                 }
             }
-            //export UG to text file
-            using (TextWriter tw = new StreamWriter(AppContext.BaseDirectory + @"\SN.txt"))
+        }
+
+        private void UpdateExcel(decimal row, string partno, string model, string pono, string year, string seqno, string sn)
+        {
+            Microsoft.Office.Interop.Excel.Application oXL = null;
+            Microsoft.Office.Interop.Excel._Workbook oWB = null;
+            Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+
+            try
             {
-                for (int x = 0; x < DG.Rows.Count - 1; x++)
+                oXL = new Microsoft.Office.Interop.Excel.Application();
+                oWB = oXL.Workbooks.Open(AppContext.BaseDirectory + @"\2021.xlsx");
+                oSheet = String.IsNullOrEmpty("Sheet1") ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets["Sheet1"];
+
+                
+
+                oSheet.Cells[row, 1] = partno;
+
+                oWB.Save();
+
+                MessageBox.Show("Done!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                if (oWB != null)
+                    oWB.Close();
+            }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application oXL = null;
+            Microsoft.Office.Interop.Excel._Workbook oWB = null;
+            Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+
+            oXL = new Microsoft.Office.Interop.Excel.Application();
+            oWB = oXL.Workbooks.Open(AppContext.BaseDirectory + @"\2021.xlsx");
+            oSheet = String.IsNullOrEmpty("Sheet1") ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets["Sheet1"];
+
+            try 
+            {
+                //export UG to text file
+                using (TextWriter tw = new StreamWriter(AppContext.BaseDirectory + @"\SN.txt"))
                 {
-                    tw.Write($"{DG.Rows[x].Cells[0].Value.ToString()}");
-                    tw.WriteLine();
+                    for (int x = 0; x < DG.Rows.Count - 1; x++)
+                    {
+                        tw.Write($"{DG.Rows[x].Cells[0].Value.ToString()}");
+                        tw.WriteLine();
+
+                        //append text fields to excell
+                        //UpdateExcel(decimal.Parse(txtSeqNo.Text), txtPartNo.Text, txtBrand.Text, txtPONo.Text, txtYear.Text, DG.Rows[x].Cells[0].Value.ToString().Substring(DG.Rows[x].Cells[0].Value.ToString().Length - 8, 8), DG.Rows[x].Cells[0].Value.ToString());
+
+                    
+                        oSheet.Cells[decimal.Parse(txtSeqNo.Text) + x, 1] = txtPartNo.Text;
+
+                        
+
+                    }
                 }
+                oWB.Save();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                if (oWB != null)
+                oWB.Close();
             }
         }
     }
