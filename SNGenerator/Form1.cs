@@ -63,27 +63,15 @@ namespace SNGenerator
             //}
             #endregion
 
-            if (cl > 1)
+            if (cl == 1)
             {
-                //modification needed below
-                dbl = (double)(range.Cells[rw, 5] as Excel.Range).Value2 + 1;
-                txtSeqNo.Text = dbl.ToString();
-                
+                txtSeqNo.Text = "0";
             }
             else
             {
-                txtSeqNo.Text = "1";
+                dbl = (double)(range.Cells[rw, 5] as Excel.Range).Value2;
+                txtSeqNo.Text = dbl.ToString();
             }
-
-
-            //for (rCnt = 1; rCnt <= rw; rCnt++)
-            //{
-            //    for (cCnt = 1; cCnt <= cl; cCnt++)
-            //    {
-            //        str = (string)(range.Cells[rCnt, cCnt] as Excel.Range).Value2;
-            //        MessageBox.Show(str);
-            //    }
-            //}
 
             xlWorkBook.Close(true, null, null);
             xlApp.Quit();
@@ -95,12 +83,12 @@ namespace SNGenerator
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Validation needed
 
             string str = "";
             double dbl;
             string seqno;
            
+            //Validation needed
             if (txtSeqNo.Text.Length > 0 && txtPartNo.Text.Length > 0 && txtBrand.Text.Length > 0 && txtPONo.Text.Length > 0 && txtQty.Text.Length > 0)
             {
                 DataTable dt = new DataTable();
@@ -132,9 +120,12 @@ namespace SNGenerator
                 oWB = oXL.Workbooks.Open(AppContext.BaseDirectory + @"\2021.xlsx");
                 oSheet = String.IsNullOrEmpty("Sheet1") ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets["Sheet1"];
 
-                
-
                 oSheet.Cells[row, 1] = partno;
+                oSheet.Cells[row, 2] = partno;
+                oSheet.Cells[row, 3] = partno;
+                oSheet.Cells[row, 4] = partno;
+                oSheet.Cells[row, 5] = partno;
+                oSheet.Cells[row, 6] = partno;
 
                 oWB.Save();
 
@@ -156,11 +147,26 @@ namespace SNGenerator
             Microsoft.Office.Interop.Excel.Application oXL = null;
             Microsoft.Office.Interop.Excel._Workbook oWB = null;
             Microsoft.Office.Interop.Excel._Worksheet oSheet = null;
+            Excel.Range range;
 
             oXL = new Microsoft.Office.Interop.Excel.Application();
             oWB = oXL.Workbooks.Open(AppContext.BaseDirectory + @"\2021.xlsx");
             oSheet = String.IsNullOrEmpty("Sheet1") ? (Microsoft.Office.Interop.Excel._Worksheet)oWB.ActiveSheet : (Microsoft.Office.Interop.Excel._Worksheet)oWB.Worksheets["Sheet1"];
 
+            int rw = 0;
+            int cl = 0;
+
+            range = oSheet.UsedRange;
+            if (txtSeqNo.Text == "0")
+            {
+                rw = range.Rows.Count + 1;
+            }
+            else
+            {
+                rw = range.Rows.Count + 2;
+            }
+            
+            cl = range.Columns.Count;
             try 
             {
                 //export UG to text file
@@ -174,11 +180,12 @@ namespace SNGenerator
                         //append text fields to excell
                         //UpdateExcel(decimal.Parse(txtSeqNo.Text), txtPartNo.Text, txtBrand.Text, txtPONo.Text, txtYear.Text, DG.Rows[x].Cells[0].Value.ToString().Substring(DG.Rows[x].Cells[0].Value.ToString().Length - 8, 8), DG.Rows[x].Cells[0].Value.ToString());
 
-                    
-                        oSheet.Cells[decimal.Parse(txtSeqNo.Text) + x, 1] = txtPartNo.Text;
-
-                        
-
+                        oSheet.Cells[rw + x, 1] = txtPartNo.Text;
+                        oSheet.Cells[rw + x, 2] = txtBrand.Text;
+                        oSheet.Cells[rw + x, 3] = txtPONo.Text;
+                        oSheet.Cells[rw + x, 4] = txtYear.Text;
+                        oSheet.Cells[rw + x, 5] = DG.Rows[x].Cells[0].Value.ToString().Substring(DG.Rows[x].Cells[0].Value.ToString().Length - 8, 8);
+                        oSheet.Cells[rw + x, 6] = DG.Rows[x].Cells[0].Value.ToString();
                     }
                 }
                 oWB.Save();
@@ -192,6 +199,11 @@ namespace SNGenerator
             {
                 if (oWB != null)
                 oWB.Close();
+                oXL.Quit();
+
+                Marshal.ReleaseComObject(oSheet);
+                Marshal.ReleaseComObject(oWB);
+                Marshal.ReleaseComObject(oXL);
             }
         }
     }
